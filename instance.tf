@@ -18,6 +18,12 @@ resource "google_compute_instance" "kvm-host" {
     user-data = "${file("script.sh")}"
   }
 
+  service_account {
+    scopes = ["compute-ro", "storage-ro"]
+  }
+
+  enable_display = "true"
+
   #  provisioner "remote-exec" {
   #    script = "script.sh"
   #
