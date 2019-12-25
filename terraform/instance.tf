@@ -15,7 +15,7 @@ resource "google_compute_instance" "kvm-host" {
   }
 
   metadata {
-    user-data = "${file("script.sh")}"
+    user-data = "${file("scripts/init.sh")}"
   }
 
   service_account {
@@ -23,15 +23,4 @@ resource "google_compute_instance" "kvm-host" {
   }
 
   enable_display = "true"
-
-  #  provisioner "remote-exec" {
-  #    script = "script.sh"
-  #
-  #    connection {
-  #      type        = "ssh"
-  #      user        = "${var.name}"
-  #      timeout     = "2m"
-  #      private_key = "${file("/Users/jcampbell/.ssh/google_compute_engine.pub")}"
-  #    }
-  #  }
 }
