@@ -25,6 +25,8 @@ Terraform code to help stand up a MacOS KVM on cloud hosting services. As of RC 
 
 The server will take approximately 8 minutes to boot everything and install everything for the first time (this will occur after Terraform has completed as the int script in the Terraform directory runs after boot)t. Once it is complete you can use a VNC client like TigerVNC to connect to it via the IP of the instance from the end of the Terraform run. The VNC service is hosted on port 5900 and the firewall is locked to only your external IP. If you change network connections you will likely not have access to it. This is for security reasons as VNC isn't the most secure protocol.
 
+Once you have connected to the VNC service, the default password, `PASSWORD` can be modified in `GCP/terrfaorm/scripts/init.sh`. I recommend changing this.
+
 ## OpenCore Language
 
 The OpenCore image from the source OSX-KVM repo is Japanese so you will need to change the language after startup. To do this its the first menu bar item, and first selection in that menu as seen in the image below:
