@@ -17,10 +17,4 @@ resource "google_compute_instance" "kvm-host" {
   metadata {
     user-data = "${file("scripts/init.sh")}"
   }
-
-  service_account {
-    scopes = ["compute-ro", "storage-ro"]
-  }
-
-  enable_display = "true"
 }
