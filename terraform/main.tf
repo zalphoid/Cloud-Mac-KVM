@@ -7,4 +7,8 @@ provider "google" {
 
 terraform {
   required_vesrion = "0.11.12"
+
+  required_providers {
+    google = "~>2.20.2"
+  }
 }
