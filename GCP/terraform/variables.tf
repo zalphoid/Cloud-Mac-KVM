@@ -1,15 +1,24 @@
+variable "instance_count" {
+  description = "The number of instances you want to deploy"
+  default = "1"
+}
+
 variable "region" {
   description = "The region this infrastructure will be created in"
 }
+
 variable "gcp_project" {
   description = "The Google Project created for this deployment"
 }
+
 variable "credentials" {
   description = "The credentials file. Helpful information can be found in the GCP README.md"
 }
+
 variable "name" {
   description = "Generic name of deployment"
 }
+
 variable "zone" {
   description = "Zone of the region the infrastructure will be created in"
 }
@@ -23,11 +32,9 @@ variable "source_image" {
   default = "ubuntu-1804-bionic-v20191211"
 }
 
-variable "network_name" {}
-
 variable "disk_size" {
   description = "The size of the disk uses for the KVM-host instance. Must be larger than 40GB for macOS VM image"
-  default = "260"
+  default     = "260"
 }
 
 variable "county_code" {

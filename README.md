@@ -33,6 +33,6 @@ The OpenCore image from the source OSX-KVM repo is Japanese so you will need to 
 
 ![Change Language](language.png)
 
-### Saving Mac for later
+## Saving Mac for later
 
   - [GCP](GCP/README.md#saving-mac-for-later)
