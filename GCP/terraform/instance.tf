@@ -15,6 +15,21 @@ resource "google_compute_instance" "kvm-host" {
   }
 
   metadata {
-    user-data = "${file("scripts/init.sh")}"
+    user-data = "${data.template_file.script.rendered}"
+  }
+
+  service_account {
+    scopes = ["compute-ro", "storage-rw"]
+  }
+}
+
+data "template_file" "script" {
+  template = "${file("scripts/init.sh")}"
+
+  vars {
+    PASSWORD   = "${var.vnc_password}"
+    BUCKET     = "${var.bucket}"
+    BASE_IMAGE = "${var.base_image}"
+    SKIP_USER  = "${var.skip_user}"
   }
 }
