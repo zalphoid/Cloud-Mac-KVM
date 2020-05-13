@@ -8,7 +8,12 @@ Once a GCP account is created, next step is to setup a project and create the se
 
 2. Creating a service account for your project. [Here](https://support.google.com/cloud/answer/6158849#serviceaccounts) are instructions for creating a service account
 
-## Username ??
+
+## Instance Count
+
+The terraform variable `instance_count` allows for users to easily deploy multiple KVM instances.
+
+## Username
 
   If you plan to have images for each use of this KVM and save them in the bucket for later use then you will need to ssh into your instance via the instance IP or `gcloud compute ssh kvm-host`. Once connected to your instance, write a file with the name username containing the users name to the tmp directory like so: `echo "users-name" > /tmp/username`.
 
@@ -34,14 +39,18 @@ Once a GCP account is created, next step is to setup a project and create the se
 ## Example terraform.tfvars
 
 ```
-region = "us-west2"
-gcp_project = "cloudmac-262823"
-credentials = "path to json service account creds"
-name = "jcampbell"
-zone = "us-west2-a"
-ssh_key = "path to ssh key"
-network_name = "macOSnet"
+region = ""
+zone = ""
+name = ""
+gcp_project = ""
+credentials = ""
 ```
+
+- region - (e.g. `us-west-2`) Other regions can be found [here](https://cloud.google.com/compute/docs/regions-zones/#locations)
+- zone - (e.g. `us-west-2-a`) Zone can be found on the same page as region using the same format as seen in the example.
+ - name - Generic name used in much of the infrastructure of this deployment.
+- gcp_project - The full project name including the random string of numbers appended to the end of it (e.g. `maccloud-1235612`)
+- credentials - The path to the credentials file you downloaded when setting up a service account (e.g. `/Users/macuser/.ssh/maccloud.json`)
 
 ## To bucket or not to bucket, that is the question
 
