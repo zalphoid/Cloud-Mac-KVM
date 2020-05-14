@@ -1,6 +1,6 @@
 resource "google_compute_instance" "kvm-host" {
   count        = "${var.instance_count}"
-  name         = "kvm-host-${count.index + 1}"
+  name         = "${var.name}-${count.index + 1}"
   zone         = "${var.zone}"
   machine_type = "${var.machine_type}"
 
@@ -16,7 +16,7 @@ resource "google_compute_instance" "kvm-host" {
   }
 
   metadata {
-    user-data = "${data.template_file.script.rendered}"
+    user-data = "${element(data.template_file.script.*.rendered, count.index)}"
   }
 
   service_account {
@@ -24,9 +24,9 @@ resource "google_compute_instance" "kvm-host" {
   }
 }
 
-resource "google_compute_image" "macoskvm" {
+resource "google_compute_image" "image" {
   count       = "${var.instance_count}"
-  name        = "macoskvm-${count.index + 1}"
+  name        = "${var.name}-image-${count.index + 1}"
   source_disk = "${element(google_compute_disk.disk.*.self_link, count.index)}"
 
   licenses = [
@@ -36,19 +36,22 @@ resource "google_compute_image" "macoskvm" {
 
 resource "google_compute_disk" "disk" {
   count = "${var.instance_count}"
-  name  = "disk"
+  name  = "${var.name}-disk-${count.index + 1}"
   type  = "pd-ssd"
   zone  = "${var.zone}"
   image = "${var.source_image}"
 }
 
 data "template_file" "script" {
+  count = "${var.instance_count}"
+
   template = "${file("scripts/init.sh")}"
 
   vars {
-    PASSWORD   = "${var.vnc_password}"
+    USERNAME   = "${var.users[count.index]}"
+    PASSWORD   = "${var.vnc_password[count.index]}"
     BUCKET     = "${var.bucket}"
     BASE_IMAGE = "${var.base_image}"
-    SKIP_USER  = "${var.skip_user}"
+    IMAGE_SIZE = "${var.image_size}"
   }
 }
