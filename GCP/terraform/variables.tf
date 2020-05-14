@@ -1,6 +1,6 @@
 variable "instance_count" {
   description = "The number of instances you want to deploy"
-  default     = "3"
+  default     = "1"
 }
 
 variable "create_bucket" {

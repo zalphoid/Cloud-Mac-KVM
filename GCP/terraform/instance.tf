@@ -6,7 +6,7 @@ resource "google_compute_instance" "kvm-host" {
 
   boot_disk {
     initialize_params {
-      image = "${element(google_compute_image.macoskvm.*.self_link, count.index)}"
+      image = "${element(google_compute_image.image.*.self_link, count.index)}"
     }
   }
 
