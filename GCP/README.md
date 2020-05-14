@@ -1,6 +1,23 @@
 # GCP
 
-## Setting up a GCP environment
+## Steps to setup macOS in GCP
+
+1. Set up your GCP environment
+2. Define variables
+  - set `instance_count` to 1
+  - set `create_bucket` to false
+  - set `users` list to `["user"]`
+  - set `vnc_password` list to your desired password (same format as user list e.g. `["password"]`
+3. Start the instance, connect to it, format the QEMU drive, install macOS (stop before the first reboot if you want to have multiple users as that will be your base image).
+4. Set the `create_bucket` variable to `true` and set the variable `bucket` to a unique name.
+5. SSH into the instance, rename the base image (located at the root directory `/user.img` to `/base.img` and upload the base image to your bucket with the `gsutil` command.
+6. Set the variable `base_image` to `base.img`.
+7. Set the username and password lists as needed.
+8. Set `instance_count` to the desired number of instances.
+9. PROFIT (but don't actually because this is legally questionable and should not be performed as this is just novelty code)
+
+
+### Setting up a GCP environment
 
 Once a GCP account is created, next step is to setup a project and create the service account for that project.
 
@@ -9,32 +26,12 @@ Once a GCP account is created, next step is to setup a project and create the se
 2. Creating a service account for your project. [Here](https://support.google.com/cloud/answer/6158849#serviceaccounts) are instructions for creating a service account
 
 
-## Instance Count
+### Instance Count
 
 The terraform variable `instance_count` allows for users to easily deploy multiple KVM instances.
 
-## Username
+The variable `users` then assigns each index of the user to the indexed instance. (e.g. instance-1 == user1)
 
-  If you plan to have images for each use of this KVM and save them in the bucket for later use then you will need to ssh into your instance via the instance IP or `gcloud compute ssh kvm-host`. Once connected to your instance, write a file with the name username containing the users name to the tmp directory like so: `echo "users-name" > /tmp/username`.
-
-  This will finish the init script and either pull that users image or create a new users image if that users name doesn't exist in the bucket.
-
-  If you want to skip this step, simply set the variable `SKIP_USER` to `true`.
-
-  You can also choose to skip the user step to create your first base image. Once you have completed installing macOS to the main volume you can then upload the image, found at `/disk.img` to your bucket via the gsutil command - `gsutil -o GSUtil:parallel_composite_upload_threshold=150M cp /disk.img gs://$BUCKET_NAME`.
-
-## Saving Mac for Later
-
- 1. Remove image and disk from state list
- - `terraform state rm google_compute_image.macoskvm`
- - `terraform state rm google_compute_disk.disk`
-
- 2. Destroy the rest of the resources
- - `terraform destroy`
-
- 3. Import image and disk to state file
- - `terraform import google_compute_image.macoskvm macoskvm`
- - `terraform import google_compute_disk.disk disk`
 
 ## Example terraform.tfvars
 
@@ -60,7 +57,7 @@ In the terraform directory there is a file called `bucket.tf`.
 
 You have two options, use the bucket or don't use the bucket.
 
-If you want to use the bucket to distribute a base image to the instances then you can first run a target apply for your Terraform. This will allow you to upload the base image to the bucket using the `gsutil` tool from the Google-Cloud-SDK.
+If you want to use the bucket to distribute a base image to the instances then make sure the variable `create_bucket` is set to true. This will create the resource and allow you to upload the base image to the bucket using the `gsutil` tool from the Google-Cloud-SDK. also be done after the initial creation and you can then upload the completed base image to your bucket then. Just change the variable and run an apply again.
 
 `gsutil cp Macintoshhd.img gs://bucket-name-here/`
 

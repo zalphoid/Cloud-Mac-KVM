@@ -1,6 +1,11 @@
 variable "instance_count" {
   description = "The number of instances you want to deploy"
-  default = "1"
+  default     = "3"
+}
+
+variable "create_bucket" {
+  description = "Creates the bucket for use storing the images"
+  default     = false
 }
 
 variable "region" {
@@ -24,7 +29,7 @@ variable "zone" {
 }
 
 variable "machine_type" {
-  default     = "n1-standard-8"
+  default     = "n1-standard-2"
   description = "Other options listed in size are, n1-standard-2, n1-stanard-(number of cpu cores [4,8,16,32])"
 }
 
@@ -34,7 +39,7 @@ variable "source_image" {
 
 variable "disk_size" {
   description = "The size of the disk uses for the KVM-host instance. Must be larger than 40GB for macOS VM image"
-  default     = "260"
+  default     = "40"
 }
 
 variable "county_code" {
@@ -46,13 +51,23 @@ variable "bucket" {
 }
 
 variable "base_image" {
-  default = "disk.img"
+  default = "null"
 }
 
 variable "vnc_password" {
-  default = "password1"
+  type = "list"
+
+  default = ["password1", "password2", "password3"]
 }
 
-variable "skip_user" {
-  default = "false"
+variable "users" {
+  description = "List of users (in order of instances being created) to use each instance."
+  type        = "list"
+
+  default = ["user1", "user2", "user3"]
+}
+
+variable "image_size" {
+  description = "The size of the image that QEMU-IMG will create inside the instance"
+  default     = "128G"
 }
