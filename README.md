@@ -1,19 +1,21 @@
 # Cloud Mac KVM
-Terraform code to help stand up a MacOS KVM on cloud hosting services. As of RC 0.1.0 The only cloud that is supported is GCP but others are coming.
+Terraform code to help stand up a MacOS KVM on cloud hosting services.
 
 ### How to use
 
   1. Create account with hosting service.
   - [GCP](https://cloud.google.com)
+  - [AWS](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
 
   2. Setup environment.
   - [GCP Setup README](GCP/README.md#setting-up-a-gcp-environment)
+  - [AWS Setup README](AWS/README.md#setting-up-a-aws-environemnt)
 
   4. Download [Terraform CLI v0.11.12](releases.hashicorp.com/terraform/0.11.12/) and install.
 
   5. Download or `git clone` this repo and `cd` into the hosting provider directory (at this time `GCP` is the only host), then into the `terraform` directory and create a file called `terraform.tfvars` then populate as seen [here](GCP/README.md#example-terraform.tfvars).
 
-  6. Run `terraform init` to download the host provider.
+  6. Run `terraform init` to download the host provider and other providers.
 
   7. Input necessary variables to `terraform.tvars` file
 
@@ -36,3 +38,4 @@ The OpenCore image from the source OSX-KVM repo is Japanese so you will need to 
 ## Saving Mac for later
 
   - [GCP](GCP/README.md#saving-mac-for-later)
+  - [AWS](AWS/README.md#saving-mac-for-later)
