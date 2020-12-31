@@ -29,7 +29,7 @@ variable "zone" {
 }
 
 variable "machine_type" {
-  default     = "n1-standard-2"
+  default     = "n1-standard-4"
   description = "Other options listed in size are, n1-standard-2, n1-stanard-(number of cpu cores [4,8,16,32])"
 }
 
@@ -39,7 +39,7 @@ variable "source_image" {
 
 variable "disk_size" {
   description = "The size of the disk uses for the KVM-host instance. Must be larger than 40GB for macOS VM image"
-  default     = "40"
+  default     = "60"
 }
 
 variable "county_code" {
@@ -69,5 +69,5 @@ variable "users" {
 
 variable "image_size" {
   description = "The size of the image that QEMU-IMG will create inside the instance"
-  default     = "128G"
+  default     = "40G"
 }

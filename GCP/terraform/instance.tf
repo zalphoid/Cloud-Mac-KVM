@@ -7,6 +7,8 @@ resource "google_compute_instance" "kvm-host" {
   boot_disk {
     initialize_params {
       image = "${element(google_compute_image.image.*.self_link, count.index)}"
+      type  = "pd-ssd"
+      size  = "${var.disk_size}"
     }
   }
 
@@ -37,10 +39,10 @@ resource "google_compute_image" "image" {
 resource "google_compute_disk" "disk" {
   count = "${var.instance_count}"
   name  = "${var.name}-disk-${count.index + 1}"
-  type  = "pd-ssd"
+  type  = "pd-standard"
   zone  = "${var.zone}"
   image = "${var.source_image}"
-  size  = "${var.disk_size}"
+  size  = "10"
 }
 
 data "template_file" "script" {
