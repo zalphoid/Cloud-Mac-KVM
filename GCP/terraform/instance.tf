@@ -45,7 +45,7 @@ resource "google_compute_disk" "disk" {
 data "template_file" "script" {
   count = "${var.instance_count}"
 
-  template = "${file("scripts/init.sh")}"
+  template = "${file("../../scripts/init.sh")}"
 
   vars {
     USERNAME   = "${var.users[count.index]}"
