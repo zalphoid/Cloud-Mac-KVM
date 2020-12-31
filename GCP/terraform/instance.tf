@@ -40,6 +40,7 @@ resource "google_compute_disk" "disk" {
   type  = "pd-ssd"
   zone  = "${var.zone}"
   image = "${var.source_image}"
+  size  = "${var.disk_size}"
 }
 
 data "template_file" "script" {
