@@ -1,5 +1,5 @@
 # Cloud Mac KVM
-Terraform code to help stand up a macOS KVM on cloud hosting services. As of RC 0.1.0 The only cloud that is supported is GCP but others are coming.
+Terraform code to help stand up a MacOS KVM on cloud hosting services. As of RC 0.1.0 The only cloud that is supported is GCP but others are coming.
 
 ### How to use
 
@@ -31,7 +31,7 @@ Once you have connected to the VNC service, the default password, `PASSWORD` can
 
 The OpenCore image from the source OSX-KVM repo is Japanese so you will need to change the language after startup. To do this its the first menu bar item, and first selection in that menu as seen in the image below:
 
-![Change Language](https://camo.githubusercontent.com/df292ded43fbd2d764f2dc1310c418f1df07ad5cccff2178678ec0d89c944499/68747470733a2f2f692e696d6775722e636f6d2f7157376434594e2e706e67)
+![Change Language](language.png)
 
 ## Saving Mac for later
 

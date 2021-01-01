@@ -28,7 +28,7 @@ Once a GCP account is created, next step is to setup a project and create the se
 
 ### Instance Count
 
-The Terraform variable `instance_count` allows for users to easily deploy multiple KVM instances.
+The terraform variable `instance_count` allows for users to easily deploy multiple KVM instances.
 
 The variable `users` then assigns each index of the user to the indexed instance. (e.g. instance-1 == user1)
 
