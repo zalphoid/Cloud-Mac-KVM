@@ -13,11 +13,10 @@ resource "google_compute_instance" "kvm-host" {
   }
 
   network_interface {
-    subnetwork    = "${google_compute_subnetwork.subnet.self_link}"
-    access_config = {}
+    subnetwork = "${google_compute_subnetwork.subnet.self_link}"
   }
 
-  metadata {
+  metadata = {
     user-data = "${element(data.template_file.script.*.rendered, count.index)}"
   }
 
@@ -50,7 +49,7 @@ data "template_file" "script" {
 
   template = "${file("scripts/init.sh")}"
 
-  vars {
+  vars = {
     USERNAME   = "${var.users[count.index]}"
     PASSWORD   = "${var.vnc_password[count.index]}"
     BUCKET     = "${var.bucket}"
